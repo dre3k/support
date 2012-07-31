@@ -1,5 +1,8 @@
 class Reply < ActiveRecord::Base
-  attr_accessible :owner_from, :owner_to, :status_from, :status_to, :message
+  attr_accessible \
+    :owner_from_id,  :owner_to_id,
+    :status_from_id, :status_to_id,
+    :message
 
   validates_presence_of :message
 end
@@ -8,13 +11,13 @@ end
 #
 # Table name: replies
 #
-#  id          :integer          not null, primary key
-#  owner_from  :integer
-#  owner_to    :integer
-#  status_from :integer
-#  status_to   :integer
-#  message     :text             not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id             :integer          not null, primary key
+#  owner_from_id  :integer
+#  owner_to_id    :integer
+#  status_from_id :integer
+#  status_to_id   :integer
+#  message        :text             not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
 #
 

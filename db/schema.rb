@@ -32,13 +32,13 @@ ActiveRecord::Schema.define(:version => 20120731134911) do
   add_index "members", ["username"], :name => "index_members_on_username", :unique => true
 
   create_table "replies", :force => true do |t|
-    t.integer  "owner_from"
-    t.integer  "owner_to"
-    t.integer  "status_from"
-    t.integer  "status_to"
-    t.text     "message",     :null => false
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "owner_from_id"
+    t.integer  "owner_to_id"
+    t.integer  "status_from_id"
+    t.integer  "status_to_id"
+    t.text     "message",        :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "ticket_statuses", :force => true do |t|
