@@ -12,4 +12,7 @@
       == Logged in as #{current_member.username}
       = link_to 'Log Out', logout_path, method: 'delete'
 
-= yield
+  - flash.each do |name, message|
+    = content_tag :div, message, id: "flash_#{name}"
+
+  = yield
