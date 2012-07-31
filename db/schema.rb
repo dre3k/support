@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120731125053) do
+ActiveRecord::Schema.define(:version => 20120731130857) do
 
   create_table "customers", :force => true do |t|
     t.string   "name",       :null => false
@@ -30,5 +30,13 @@ ActiveRecord::Schema.define(:version => 20120731125053) do
   end
 
   add_index "members", ["username"], :name => "index_members_on_username", :unique => true
+
+  create_table "ticket_statuses", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "ticket_statuses", ["name"], :name => "index_ticket_statuses_on_name", :unique => true
 
 end

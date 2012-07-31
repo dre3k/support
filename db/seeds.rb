@@ -18,3 +18,11 @@ begin
 rescue
   puts 'Looks like Members already been seeded'
 end
+
+begin
+  TicketStatus::NAMES.each do |name|
+    TicketStatus.create!(name: name)
+  end
+rescue
+  puts 'Looks like TicketStatuses already been seeded'
+end
