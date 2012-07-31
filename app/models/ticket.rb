@@ -9,7 +9,7 @@ class Ticket < ActiveRecord::Base
   attr_accessible :name, :email, :dep, :subject, :message
   attr_readonly   :name, :email, :dep, :subject, :message
 
-  validates_presence_of :dep, :subject, :message
+  validates_presence_of :name, :email, :dep, :subject, :message
 
   has_many :replies, :through => :histories
 
