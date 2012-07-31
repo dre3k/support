@@ -18,7 +18,7 @@ class TicketsController < ApplicationController
   def create
     @ticket = Ticket.create(name: name, email: email, department: department, subject: subject, message: message)
     if ticket.save
-      redirect_to root_url, :notice => "Ticket #{ticket.id} created!"
+      redirect_to root_url, :notice => "Ticket #{ticket.no} created! URL is #{ticket.url}"
     else
       render :action => "new"
     end
