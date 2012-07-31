@@ -1,4 +1,9 @@
 class Ticket < ActiveRecord::Base
+  # Number format ABC-123456
+  NO_ABC    = ('AAA'..'ZZZ').to_a
+  NO_MAXDIG = 6
+  NO_MAXNUM = 10 ** NO_MAXDIG
+
   belongs_to :owner
   belongs_to :status
   attr_accessible :dep, :subject, :message
@@ -14,14 +19,18 @@ class Ticket < ActiveRecord::Base
   end
 
   def self.no_from_id(id)
-    # TODO: format ABC-123456
-    return id
+    abc_index, number = id.divmod self::NO_MAXNUM # returns [quotient, modulus]
+    abc = self::NO_ABC[abc_index]
+    # TODO: better handle following exception
+    raise "DO SOMETHING WITH TICKET's NUMBERING" unless abc
+    "#{abc}-%0#{self::NO_MAXDIG}d" % number
   end
 
   def self.url_from_id(id)
     # TODO: rationalize
     Digest::SHA1.hexdigest("#{id}-#{UUID.generate}")
   end
+
 end
 #
 # == Schema Information
