@@ -14,8 +14,9 @@ class Ticket < ActiveRecord::Base
   has_many :replies, :through => :histories
 
   after_create do |record|
-    update_attribute :no, Ticket.no_from_id(record.id)
-    update_attribute :url, Ticket.url_from_id(record.id)
+    no =  Ticket.no_from_id(record.id)
+    url = Ticket.url_from_no(no)
+    update_attributes!({no: no, url: url}, without_protection: true)
   end
 
   def self.no_from_id(id)
@@ -26,9 +27,9 @@ class Ticket < ActiveRecord::Base
     "#{abc}-%0#{self::NO_MAXDIG}d" % number
   end
 
-  def self.url_from_id(id)
+  def self.url_from_no(no)
     # TODO: rationalize
-    Digest::SHA1.hexdigest("#{id}-#{UUID.generate}")
+    Digest::SHA1.hexdigest("#{no}-#{UUID.generate}")
   end
 
 end
