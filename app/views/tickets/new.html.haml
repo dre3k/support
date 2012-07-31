@@ -1,7 +1,7 @@
 %h1 Create new ticket
 
 = form_tag tickets_path do
-  - if ticket.errors.any?
+  - if ticket && ticket.errors.any?
     %div
       %h2 Form is invalid
       %ul
