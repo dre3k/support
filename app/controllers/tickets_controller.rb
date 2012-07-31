@@ -7,7 +7,7 @@ class TicketsController < ApplicationController
   expose(:subject) { params[:subject] }
   expose(:message) { params[:message] }
 
-  #expose(:ticket) {
+  expose(:ticket) { @ticket }
 
   def index
   end
@@ -16,7 +16,7 @@ class TicketsController < ApplicationController
   end
 
   def create
-    ticket = Ticket.create(name: name, email: email, dep: dep, subject: subject, message: message)
+    @ticket = Ticket.create(name: name, email: email, dep: dep, subject: subject, message: message)
     if ticket.save
       redirect_to root_url(auction), :notice => "Ticket #{ticket.id} created!"
     else
