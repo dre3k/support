@@ -13,15 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20120731135757) do
 
-  create_table "customers", :force => true do |t|
-    t.string   "name",       :null => false
-    t.string   "email",      :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "customers", ["email"], :name => "index_customers_on_email", :unique => true
-
   create_table "histories", :force => true do |t|
     t.integer  "ticket_id",  :null => false
     t.integer  "reply_id",   :null => false
@@ -60,6 +51,8 @@ ActiveRecord::Schema.define(:version => 20120731135757) do
 
   create_table "tickets", :force => true do |t|
     t.string   "no"
+    t.string   "name",       :null => false
+    t.string   "email",      :null => false
     t.string   "dep",        :null => false
     t.string   "subject",    :null => false
     t.text     "message",    :null => false

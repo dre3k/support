@@ -1,11 +1,3 @@
-begin
-  10.times do |i|
-    Customer.create!(name: "Demo_#{i}", email: "demo_#{i}@demo.com")
-  end
-rescue
-  puts 'Looks like Customers already been seeded'
-end
-
 MEMBER_PASSWORD = 'member'
 begin
   10.times do |i|

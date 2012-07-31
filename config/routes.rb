@@ -5,4 +5,6 @@ Support::Application.routes.draw do
   resource :session, :only => [:create]
   #resource :session, :only => [:create]
   resources :tickets
+
+  root :to => 'tickets#new'
 end

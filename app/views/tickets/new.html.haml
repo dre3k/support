@@ -1,0 +1,25 @@
+%h1 Create new ticket
+
+= form_tag tickets_path do
+  %div
+    = label_tag :name
+    %br
+    = text_field_tag :name, name
+  %div
+    = label_tag :email
+    %br
+    = text_field_tag :email, email
+  %div
+    = label_tag :dep
+    %br
+    = text_field_tag :dep, dep
+  %div
+    = label_tag :subject
+    %br
+    = text_field_tag :subject, subject
+  %div
+    = label_tag :message
+    %br
+    = text_area_tag :message, message
+  %div
+    = submit_tag 'Submit'
