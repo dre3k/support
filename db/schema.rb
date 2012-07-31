@@ -20,4 +20,6 @@ ActiveRecord::Schema.define(:version => 20120731121223) do
     t.datetime "updated_at", :null => false
   end
 
+  add_index "customers", ["email"], :name => "index_customers_on_email", :unique => true
+
 end

@@ -13,6 +13,7 @@ class Customer < ActiveRecord::Base
   attr_accessible :name, :email
 
   validate :name,  :presence => true
-  validate :email, :presence => true
+  validate :email, :presence => true,
+                   :uniqueness => true
   # TODO: validation for email
 end
