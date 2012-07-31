@@ -16,7 +16,8 @@ class Ticket < ActiveRecord::Base
   after_create do |record|
     no =  Ticket.no_from_id(record.id)
     url = Ticket.url_from_no(no)
-    update_attributes!({no: no, url: url}, without_protection: true)
+    attributes = { no: no, url: url, status_id: TicketStatus::SYMBOLS[:staff] }
+    update_attributes!(attributes, without_protection: true)
   end
 
   def self.no_from_id(id)
