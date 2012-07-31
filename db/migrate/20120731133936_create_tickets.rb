@@ -1,13 +1,13 @@
 class CreateTickets < ActiveRecord::Migration
   def change
     create_table :tickets do |t|
-      t.string :no # ,       :null => false
-      t.string :name,     :null => false
-      t.string :email,    :null => false
-      t.string :dep,      :null => false
-      t.string :subject,  :null => false
-      t.text :message,    :null => false
-      t.string :url # ,      :null => false
+      t.string :name,       :null => false
+      t.string :email,      :null => false
+      t.string :department, :null => false
+      t.string :subject,    :null => false
+      t.text   :message,    :null => false
+      t.string :no
+      t.string :url
       t.references :owner
       t.references :status
 
