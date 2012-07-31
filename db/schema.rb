@@ -59,11 +59,11 @@ ActiveRecord::Schema.define(:version => 20120731135757) do
   add_index "ticket_statuses", ["name"], :name => "index_ticket_statuses_on_name", :unique => true
 
   create_table "tickets", :force => true do |t|
-    t.string   "no",         :null => false
+    t.string   "no"
     t.string   "dep",        :null => false
     t.string   "subject",    :null => false
     t.text     "message",    :null => false
-    t.string   "url",        :null => false
+    t.string   "url"
     t.integer  "owner_id"
     t.integer  "status_id"
     t.datetime "created_at", :null => false
