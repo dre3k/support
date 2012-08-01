@@ -1,4 +1,5 @@
 class TicketsController < ApplicationController
+  before_filter :authorize, only: [:index, :show]
 
   expose(:name)       { params[:name]       }
   expose(:email)      { params[:email]      }
@@ -6,7 +7,18 @@ class TicketsController < ApplicationController
   expose(:subject)    { params[:subject]    }
   expose(:message)    { params[:message]    }
 
-  expose(:ticket)  { @ticket }
+  #expose(:ticket)  { @ticket }
+
+  expose(:id) { params[:id] }
+
+  expose(:ticket)  do
+    if id && (ticket = Ticket.find_by_id(id))
+      ticket
+    else
+      @ticket
+    end
+  end
+
   expose(:tickets) { Ticket.scoped }
 
   def index
@@ -22,5 +34,8 @@ class TicketsController < ApplicationController
     else
       render :action => "new"
     end
+  end
+
+  def show
   end
 end
