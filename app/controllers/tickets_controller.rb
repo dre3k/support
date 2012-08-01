@@ -10,10 +10,13 @@ class TicketsController < ApplicationController
 
   expose(:ticket)  do
     # TODO: refactor
-    if id && current_member && (ticket = Ticket.find_by_id(id))
-      ticket
-    elsif id && (ticket = Ticket.find_by_url(id))
-      ticket
+    if id
+      ticket = current_member ? Ticket.find_by_id(id) : Ticket.find_by_url(id)
+      if ticket
+        ticket
+      else
+        raise ActionController::RoutingError.new("No route matches [#{request.method}] \"#{request.path}\"")
+      end
     else
       @ticket
     end
