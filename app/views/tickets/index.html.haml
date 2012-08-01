@@ -1,9 +1,20 @@
+%table
+  %tbody
+    %tr
+      - %w[unsigned open onhold closed].each do |iscope|
+        %td
+          - if iscope == scope
+            = iscope
+          -else
+            = link_to iscope, scoped_tickets_path(iscope)
 %h1 Tickets
-%ul
-- for ticket in tickets
-  %li
-    %p= ticket.name
-    %p= ticket.email
-    %p= ticket.department
-    %p= ticket.subject
-    %p= ticket.message
+- if scope
+  %table
+    %tbody
+    - tickets.each_with_index do |ticket, index|
+      %tr
+        %td= index.succ
+        %td= ticket.name
+        %td= ticket.email
+        %td= ticket.department
+        %td= ticket.subject
