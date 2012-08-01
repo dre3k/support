@@ -23,8 +23,8 @@ class Ticket < ActiveRecord::Base
   NO_MAXNUM = 10 ** NO_MAXDIG
   NO_REGEX  = /[A-Z]{3}-\d{#{NO_MAXDIG}}/
 
-  belongs_to :owner
-  belongs_to :status
+  belongs_to :owner,  :class_name => 'Member'
+  belongs_to :status, :class_name => 'TicketStatus'
   attr_accessible :name, :email, :department, :subject, :message
   attr_readonly   :name, :email, :department, :subject, :message
 
