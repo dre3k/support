@@ -9,7 +9,8 @@ class TicketsController < ApplicationController
 
   #expose(:ticket)  { @ticket }
 
-  expose(:id) { params[:id] }
+  expose(:id)    { params[:id]    }
+  expose(:scope) { params[:scope] }
 
   expose(:ticket)  do
     if id && (ticket = Ticket.find_by_id(id))
@@ -19,7 +20,14 @@ class TicketsController < ApplicationController
     end
   end
 
-  expose(:tickets) { Ticket.scoped }
+  expose(:tickets) do
+    case
+    when scope && Ticket.respond_to?(scope)
+      Ticket.send scope
+    else
+      Ticket.scoped
+    end
+  end
 
   def index
   end
