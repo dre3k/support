@@ -60,18 +60,25 @@ class Ticket < ActiveRecord::Base
       Reply.attr_accessible[:default].to_a.delete_if(&:empty?).map(&:to_sym)
     options.select! { |key, val| reply_attributes.include? key }
 
-    if Member.find_by_id options[:owner_to_id]
+    update_owner = options[:owner_to_id] and Member.find_by_id(options[:owner_to_id])
+    if update_owner
       options[:owner_from_id] = read_attribute(:owner_id)
     end
 
-    if TicketStatus.find_by_id options[:status_to_id]
+    update_status = options[:status_to_id] and \
+      TicketStatus.find_by_id(options[:status_to_id])
+    if update_status
       options[:status_from_id] = read_attribute(:status_id)
     end
 
     reply = replies.build options
 
     if reply.valid?
+      # TODO: transaction?
       replies << reply
+      ticket_attributes = \
+        { owner_id: options[:owner_to_id], status_id: options[:status_to_id] }
+      update_attributes!(ticket_attributes, without_protection: true)
     end
 
     return reply
