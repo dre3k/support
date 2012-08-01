@@ -21,6 +21,7 @@ class Ticket < ActiveRecord::Base
   NO_ABC    = ('AAA'..'ZZZ').to_a
   NO_MAXDIG = 6
   NO_MAXNUM = 10 ** NO_MAXDIG
+  NO_REGEX  = /[A-Z]{3}-\d{#{NO_MAXDIG}}/
 
   belongs_to :owner
   belongs_to :status
