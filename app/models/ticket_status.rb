@@ -1,9 +1,7 @@
 class TicketStatus < ActiveRecord::Base
-  NAMES = [
-    'waiting for staff response', 'waiting for customer', 'on hold',
-    'cancelled', 'completed'
-  ]
-  SYMBOLS = { staff: 0, customer: 1, onhold: 2, cancelled: 3, completed: 4 }
+  NAMES = [ 'waiting for staff response', 'waiting for customer',
+    'on hold', 'cancelled', 'completed' ]
+  SYMBOLS = { staff: 1, customer: 2, onhold: 3, cancelled: 4, completed: 5 }
 
   attr_accessible :name
   attr_readonly   :name
