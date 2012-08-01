@@ -29,15 +29,17 @@ class Ticket < ActiveRecord::Base
 
   validates_presence_of :name, :email, :department, :subject, :message
 
-  has_many :histories
-  has_many :replies, :through => :histories
-
   after_create do |record|
     no =  Ticket.no_from_id(record.id)
     url = Ticket.url_from_no(no)
     attributes = { no: no, url: url, status_id: TicketStatus::SYMBOLS[:staff] }
     update_attributes!(attributes, without_protection: true)
   end
+
+  has_many :histories
+  has_many :replies, :through => :histories
+
+  scope :unsigned, where(:owner_id => nil)
 
   def self.no_from_id(id)
     abc_index, number = id.divmod self::NO_MAXNUM # returns [quotient, modulus]
