@@ -18,3 +18,17 @@ begin
 rescue
   puts 'Looks like TicketStatuses already been seeded'
 end
+
+begin
+  60.times do
+    Ticket.create!({
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+      department: Faker::Job.title,
+      subject: Faker::Job.title,
+      message: Faker::Lorem.paragraph
+    })
+  end
+rescue
+  puts 'Looks like Tickets already been seeded'
+end
