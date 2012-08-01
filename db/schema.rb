@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20120731135757) do
   add_index "histories", ["ticket_id"], :name => "index_histories_on_ticket_id"
 
   create_table "members", :force => true do |t|
+    t.string   "name",            :null => false
     t.string   "username",        :null => false
     t.string   "password_digest", :null => false
     t.datetime "created_at",      :null => false

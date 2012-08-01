@@ -3,6 +3,7 @@ MEMBERS_COUNT = 10
 begin
   MEMBERS_COUNT.times do |i|
     Member.create!(
+      name:     Faker::Name.name,
       username: "member_#{i}",
       password: MEMBER_PASSWORD,
       password_confirmation: MEMBER_PASSWORD
