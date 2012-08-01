@@ -20,6 +20,14 @@ class TicketsController < ApplicationController
     end
   end
 
+  expose(:replies) do
+    if ticket && (replies = ticket.replies)
+      replies
+    else
+      nil
+    end
+  end
+
   expose(:tickets) do
     case
     when scope && Ticket.respond_to?(scope)

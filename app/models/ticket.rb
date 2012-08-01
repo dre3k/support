@@ -38,7 +38,7 @@ class Ticket < ActiveRecord::Base
   end
 
   has_many :histories
-  has_many :replies, :through => :histories
+  has_many :replies, :through => :histories, :include => [:owner_from, :owner_to, :status_from, :status_to]
 
   scope :unsigned, where(:owner_id => nil)
   scope :open, where('not (status_id in (:canceled_id, :completed_id))',

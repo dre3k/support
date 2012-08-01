@@ -5,6 +5,11 @@ class Reply < ActiveRecord::Base
     :message
 
   validates_presence_of :message
+
+  belongs_to :status_from, :class_name => 'TicketStatus'
+  belongs_to :status_to,   :class_name => 'TicketStatus'
+  belongs_to :owner_from,  :class_name => 'Member'
+  belongs_to :owner_to,    :class_name => 'Member'
 end
 
 # == Schema Information
