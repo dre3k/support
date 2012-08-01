@@ -2,6 +2,8 @@
 %ul
 - for ticket in tickets
   %li
-    %p ticket.department
-    %p ticket.subject
-    %p ticket.message
+    %p= ticket.name
+    %p= ticket.email
+    %p= ticket.department
+    %p= ticket.subject
+    %p= ticket.message

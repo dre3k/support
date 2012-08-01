@@ -2,6 +2,9 @@ class History < ActiveRecord::Base
   attr_accessible :ticket_id, :reply_id
 
   validates_presence_of :ticket_id, :reply_id
+
+  belongs_to :ticket
+  belongs_to :reply
 end
 
 # == Schema Information

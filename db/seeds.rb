@@ -1,6 +1,7 @@
 MEMBER_PASSWORD = 'member'
+MEMBERS_COUNT = 10
 begin
-  10.times do |i|
+  MEMBERS_COUNT.times do |i|
     Member.create!(
       username: "member_#{i}",
       password: MEMBER_PASSWORD,
@@ -21,13 +22,21 @@ end
 
 begin
   60.times do
-    Ticket.create!({
+    t = Ticket.create!({
       name: Faker::Name.name,
       email: Faker::Internet.email,
       department: Faker::Job.title,
       subject: Faker::Job.title,
       message: Faker::Lorem.paragraph
     })
+
+    if rand(2).zero?
+      t.add_reply({
+        owner_to_id: rand(MEMBERS_COUNT),
+        status_to_id: 1,
+        message: Faker::Lorem.paragraph
+      })
+    end
   end
 rescue
   puts 'Looks like Tickets already been seeded'

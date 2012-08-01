@@ -29,6 +29,7 @@ class Ticket < ActiveRecord::Base
 
   validates_presence_of :name, :email, :department, :subject, :message
 
+  has_many :histories
   has_many :replies, :through => :histories
 
   after_create do |record|
@@ -51,4 +52,26 @@ class Ticket < ActiveRecord::Base
     Digest::SHA1.hexdigest("#{no}-#{UUID.generate}")
   end
 
+  def add_reply(options)
+    # TODO: rationale?
+    reply_attributes = \
+      Reply.attr_accessible[:default].to_a.delete_if(&:empty?).map(&:to_sym)
+    options.select! { |key, val| reply_attributes.include? key }
+
+    if Member.find_by_id options[:owner_to_id]
+      options[:owner_from_id] = read_attribute(:owner_id)
+    end
+
+    if TicketStatus.find_by_id options[:status_to_id]
+      options[:status_from_id] = read_attribute(:status_id)
+    end
+
+    reply = replies.build options
+
+    if reply.valid?
+      replies << reply
+    end
+
+    return reply
+  end
 end

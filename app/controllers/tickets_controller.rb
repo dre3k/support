@@ -1,5 +1,4 @@
 class TicketsController < ApplicationController
-  expose(:tickets) { Ticket.scoped }
 
   expose(:name)       { params[:name]       }
   expose(:email)      { params[:email]      }
@@ -7,7 +6,8 @@ class TicketsController < ApplicationController
   expose(:subject)    { params[:subject]    }
   expose(:message)    { params[:message]    }
 
-  expose(:ticket) { @ticket }
+  expose(:ticket)  { @ticket }
+  expose(:tickets) { Ticket.scoped }
 
   def index
   end
