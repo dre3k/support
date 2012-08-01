@@ -1,0 +1,34 @@
+%h1== Ticket Reference Number: #{ticket.no}
+%p== Customer Name: #{ticket.name}
+%p== Department: #{ticket.department}
+%p== Subject: #{ticket.subject}
+%h3 Message:
+%p= ticket.message
+
+%h3
+  - if ticket.owner
+    == Assigned to #{ticket.owner.name}
+  - else
+    Not Assigned
+
+- if ticket.status
+  %h3== Ticket Status: #{ticket.status.name}
+
+%h2 History
+%hr
+- if replies
+  - replies.each do |reply|
+    %p== Date: #{reply.created_at}
+    - if owner_to = reply.owner_to
+      - if owner_from = reply.owner_from
+        %p== Changed owner form #{owner_from.name} to #{owner_to.name}
+      - else
+        %p== Set owner to #{owner_to.name}
+    - if status_to = reply.status_to
+      - if status_from = reply.status_from
+        %p== Changed status form #{status_from.name} to #{status_to.name}
+      - else
+        %p== Set status to #{status_to.name}
+    %h3 Message:
+    %p= reply.message
+    %hr
