@@ -1,19 +1,18 @@
 class TicketsController < ApplicationController
-  before_filter :authorize, only: [:index, :show]
-
   expose(:name)       { params[:name]       }
   expose(:email)      { params[:email]      }
   expose(:department) { params[:department] }
   expose(:subject)    { params[:subject]    }
   expose(:message)    { params[:message]    }
 
-  #expose(:ticket)  { @ticket }
-
   expose(:id)    { params[:id]    }
   expose(:scope) { params[:scope] }
 
   expose(:ticket)  do
-    if id && (ticket = Ticket.find_by_id(id))
+    # TODO: refactor
+    if id && current_member && (ticket = Ticket.find_by_id(id))
+      ticket
+    elsif id && (ticket = Ticket.find_by_url(id))
       ticket
     else
       @ticket
