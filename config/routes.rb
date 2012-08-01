@@ -9,12 +9,17 @@ class TicketsConstraint
       else
         return id =~ URL_ID_REGEX
       end
+    elsif request.params[:action] == 'index'
+      return request.session[:member_id]
     end
     return true
   end
 end
 
 Support::Application.routes.draw do
+  root :to => 'tickets#new',   :constraints => lambda { |req| !req.session[:member_id] }
+  root :to => 'tickets#index', :constraints => lambda { |req|  req.session[:member_id] }
+
   get    'login',  to: 'sessions#new',     as: 'login'
   delete 'logout', to: 'sessions#destroy', as: 'logout'
 
@@ -27,5 +32,4 @@ Support::Application.routes.draw do
     end
   end
 
-  root :to => 'tickets#new'
 end
