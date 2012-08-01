@@ -30,12 +30,35 @@ begin
       message: Faker::Lorem.paragraph
     })
 
-    if rand(2).zero?
+    case r = rand(3)
+    when 0
+      # regular reply: status -> waiting for customer
       t.add_reply({
         owner_to_id: rand(MEMBERS_COUNT),
-        status_to_id: 1,
+        status_to_id: TicketStatus::SYMBOLS[:customer],
         message: Faker::Lorem.paragraph
       })
+    when 1
+      case r = rand(4)
+      when 0
+        # cancel reply
+        t.add_reply({
+          status_to_id: TicketStatus::SYMBOLS[:cancelled],
+          message: Faker::Lorem.paragraph
+        })
+      when 1
+        # complete reply
+        t.add_reply({
+          status_to_id: TicketStatus::SYMBOLS[:completed],
+          message: Faker::Lorem.paragraph
+        })
+      when 2
+        # onhold reply
+        t.add_reply({
+          status_to_id: TicketStatus::SYMBOLS[:onhold],
+          message: Faker::Lorem.paragraph
+        })
+      end
     end
   end
 rescue
