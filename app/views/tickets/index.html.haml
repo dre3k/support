@@ -30,7 +30,7 @@
     %tbody
     - tickets.each_with_index do |ticket, index|
       %tr
-        %td= index.succ
+        %td= link_to ticket.no, ticket_path(ticket.id)
         %td= ticket.name
         %td= ticket.email
         %td= ticket.department
