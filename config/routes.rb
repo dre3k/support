@@ -24,7 +24,7 @@ Support::Application.routes.draw do
   delete 'logout', to: 'sessions#destroy', as: 'logout'
 
   resource :session, :only => [:create]
-  resources :tickets, :constraints => TicketsConstraint do
+  resources :tickets, :except => [:edit, :destroy], :constraints => TicketsConstraint do
     collection do
       get '(:scope)', :to => 'tickets#index', :as => 'scoped',
         :constraints => { :scope => /unsigned|open|onhold|closed/ }
