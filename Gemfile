@@ -22,9 +22,13 @@ end
 
 gem 'jquery-rails'
 gem 'haml-rails'
-gem 'annotate', :group => :development
 gem 'uuid'
 gem 'decent_exposure'
+
+group :development do
+  gem 'annotate'
+  gem 'ffaker'
+end
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'

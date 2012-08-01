@@ -44,6 +44,7 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    ffaker (1.15.0)
     haml (3.1.6)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -122,6 +123,7 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
   coffee-rails (~> 3.2.1)
   decent_exposure
+  ffaker
   haml-rails
   jquery-rails
   rails (= 3.2.7)
