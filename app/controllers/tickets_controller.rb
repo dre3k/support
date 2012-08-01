@@ -24,10 +24,15 @@ class TicketsController < ApplicationController
     case
     when scope && Ticket.respond_to?(scope)
       Ticket.send scope
+    when subject && (tickets = Ticket.search_by_subject(subject))
+      tickets
     else
       Ticket.scoped
     end
   end
+
+  expose(:no) { (no = params[:no]) && (Ticket::NO_REGEX =~ no.upcase!) ? no : nil }
+  expose(:subject) { params[:subject] }
 
   def index
   end
@@ -45,5 +50,15 @@ class TicketsController < ApplicationController
   end
 
   def show
+  end
+
+  def search
+    if no && (@ticket = Ticket.find_by_no(no))
+      render 'show'
+    elsif subject
+      render 'index'
+    else
+      redirect_to tickets_path, :notice => 'Please enter valid ticket reference number or subject'
+    end
   end
 end

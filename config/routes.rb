@@ -8,6 +8,7 @@ Support::Application.routes.draw do
     collection do
       get '(:scope)', :to => 'tickets#index', :as => 'scoped',
         :constraints => { :scope => /unsigned|open|onhold|closed/ }
+      post 'search'
     end
   end
 

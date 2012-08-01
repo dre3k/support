@@ -1,3 +1,21 @@
+%h1 Tickets
+
+= form_tag search_tickets_path do
+  %div
+    = label_tag :no, 'reference number'
+    %br
+    = text_field_tag :no, no
+  %div
+    = submit_tag 'Search'
+
+= form_tag search_tickets_path do
+  %div
+    = label_tag :subject, 'subject'
+    %br
+    = text_field_tag :subject, subject
+  %div
+    = submit_tag 'Search'
+
 %table
   %tbody
     %tr
@@ -7,8 +25,7 @@
             = iscope
           -else
             = link_to iscope, scoped_tickets_path(iscope)
-%h1 Tickets
-- if scope
+- if scope || (subject and tickets)
   %table
     %tbody
     - tickets.each_with_index do |ticket, index|

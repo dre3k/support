@@ -47,6 +47,9 @@ class Ticket < ActiveRecord::Base
   scope :onhold, where(:status_id => TicketStatus::SYMBOLS[:onhold])
   scope :closed, where(:status_id => [TicketStatus::SYMBOLS[:cancelled], TicketStatus::SYMBOLS[:completed]])
 
+  def self.search_by_subject(subject)
+    where('subject LIKE :subject', subject: "%#{subject}%")
+  end
 
   def self.no_from_id(id)
     abc_index, number = id.divmod self::NO_MAXNUM # returns [quotient, modulus]
