@@ -28,6 +28,9 @@ gem 'decent_exposure'
 group :development do
   gem 'annotate'
   gem 'ffaker'
+
+  gem 'debugger'
+  gem 'pry-rails'
 end
 
 # To use ActiveModel has_secure_password
