@@ -40,6 +40,9 @@ class Ticket < ActiveRecord::Base
   has_many :replies, :through => :histories
 
   scope :unsigned, where(:owner_id => nil)
+  scope :open, where('not (status_id in (:canceled_id, :completed_id))',
+                     canceled_id: TicketStatus::SYMBOLS[:cancelled],
+                     completed_id: TicketStatus::SYMBOLS[:completed])
 
   def self.no_from_id(id)
     abc_index, number = id.divmod self::NO_MAXNUM # returns [quotient, modulus]
