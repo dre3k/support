@@ -14,9 +14,9 @@
 - if ticket.status
   %h3== Ticket Status: #{ticket.status.name}
 
-%h2 History
-%hr
-- if replies
+- if replies.present?
+  %h2 History
+  %hr
   - replies.each do |reply|
     %p== Date: #{reply.created_at}
     - if owner_to = reply.owner_to
