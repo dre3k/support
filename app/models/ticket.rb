@@ -93,9 +93,10 @@ class Ticket < ActiveRecord::Base
     if reply.valid?
       # TODO: transaction?
       replies << reply
-      ticket_attributes = \
-        { owner_id: options[:owner_to_id], status_id: options[:status_to_id] }
-      update_attributes!(ticket_attributes, without_protection: true)
+      ticket_attributes = {}
+      ticket_attributes[:owner_id]  = options[:owner_to_id]  if update_owner
+      ticket_attributes[:status_id] = options[:status_to_id] if update_status
+      update_attributes!(ticket_attributes, without_protection: true) if ticket_attributes.present?
       return reply
     else
       nil
