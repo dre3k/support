@@ -2,11 +2,11 @@
   %div
     = label_tag :owner_to_id
     %br
-    = select_tag :owner_to_id, options_for_select(all_members_options)
+    = select_tag :owner_to_id, options_for_select(all_members_options, 0)
   %div
     = label_tag :status_to_id
     %br
-    = select_tag :status_to_id, options_for_select(all_ticketstatuses_options, ticket.status_id)
+    = select_tag :status_to_id, options_for_select(all_ticketstatuses_options, 0)
   %div
     = label_tag :message
     %br

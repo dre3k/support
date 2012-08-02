@@ -27,13 +27,7 @@ class TicketsController < ApplicationController
     end
   end
 
-  expose(:replies) do
-    if ticket && (replies = ticket.replies)
-      replies
-    else
-      nil
-    end
-  end
+  expose(:replies) { ticket && (replies = ticket.replies) ? replies : nil }
 
   expose(:tickets) do
     case
@@ -50,6 +44,9 @@ class TicketsController < ApplicationController
   expose(:subject) { params[:subject] }
 
   expose(:email_title) { "#{request.params[:action]}d" }
+
+  expose(:owner_to_id)  { (id = params[:owner_to_id].to_i) && (id > 0) && (Member.find_by_id(id)) || nil }
+  expose(:status_to_id) { (id = params[:status_to_id].to_i) && (id > 0) && (TicketStatus.find_by_id(id)) || nil }
 
   def index
   end
@@ -81,13 +78,17 @@ class TicketsController < ApplicationController
 
   def update
     reply_options = {
-      owner_to_id:  nil,
-      status_to_id: nil,
+      owner_to_id:  owner_to_id,
+      status_to_id: status_to_id,
       message:      message,
       as:           role
     }
     if ticket.add_reply(reply_options)
-      render 'email'
+      if current_member
+        redirect_to ticket_path(id), :notice => 'Ticket updated'
+      else
+        render 'email'
+      end
     else
       redirect_to ticket_path(id), :notice => 'Failed to add reply'
     end
