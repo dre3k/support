@@ -27,7 +27,7 @@ class TicketsController < ApplicationController
     end
   end
 
-  expose(:replies) { ticket && (replies = ticket.replies) ? replies : nil }
+  expose(:replies) { ticket && (replies = ticket.replies.uniq) ? replies : nil }
 
   expose(:tickets) do
     case
