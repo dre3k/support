@@ -77,10 +77,15 @@ class Ticket < ActiveRecord::Base
       options[:owner_from_id] = read_attribute(:owner_id)
     end
 
-    options[:status_to_id] = TicketStatus::SYMBOLS[:staff] if role == :customer
-    update_status = options[:status_to_id] and \
-      TicketStatus.find_by_id(options[:status_to_id])
+    staff_status_id = TicketStatus::SYMBOLS[:staff]
     status_id = read_attribute(:status_id)
+    update_status = \
+      if role == :customer
+        (status_id != staff_status_id) && (options[:status_to_id] = staff_status_id)
+      else
+       options[:status_to_id] && TicketStatus.find_by_id(options[:status_to_id])
+      end
+    binding.pry
     if update_status && (status_id != options[:status_to_id])
       options[:status_from_id] = status_id
     else
