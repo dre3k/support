@@ -65,9 +65,11 @@ class Ticket < ActiveRecord::Base
   end
 
   def add_reply(options)
-    # TODO: rationale?
+    # TODO: rationalize & refactor
+    role = options[:as] || :customer
     reply_attributes = \
-      Reply.attr_accessible[:default].to_a.delete_if(&:empty?).map(&:to_sym)
+      Reply.attr_accessible[role].to_a.delete_if(&:empty?).map(&:to_sym)
+    # Sanitize options
     options.select! { |key, val| reply_attributes.include? key }
 
     update_owner = options[:owner_to_id] and Member.find_by_id(options[:owner_to_id])
@@ -81,7 +83,7 @@ class Ticket < ActiveRecord::Base
       options[:status_from_id] = read_attribute(:status_id)
     end
 
-    reply = replies.build options
+    reply = replies.build(options, :as => role)
 
     if reply.valid?
       # TODO: transaction?

@@ -1,0 +1,9 @@
+-#= form_tag(:controller => 'tickets', :action => 'update',  :method => 'put') do
+= form_tag(ticket_path(id),  :method => 'put') do
+  %div
+    = label_tag :message
+    %br
+    = text_area_tag :message
+  %div
+    = submit_tag 'Reply'
+

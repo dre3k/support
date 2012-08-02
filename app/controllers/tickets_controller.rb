@@ -1,4 +1,6 @@
 class TicketsController < ApplicationController
+  expose(:role) { current_member ? :member : :customer }
+
   expose(:name)       { params[:name]       }
   expose(:email)      { params[:email]      }
   expose(:department) { params[:department] }
@@ -67,6 +69,20 @@ class TicketsController < ApplicationController
       render 'index'
     else
       redirect_to tickets_path, :notice => 'Please enter valid ticket reference number or subject'
+    end
+  end
+
+  def update
+    reply_options = {
+      owner_to_id:  nil,
+      status_to_id: nil,
+      message:      message,
+      as:           role
+    }
+    if ticket.add_reply(reply_options)
+      redirect_to ticket_path(id), :notice => 'Reply added'
+    else
+      redirect_to ticket_path(id), :notice => 'Failed to add reply'
     end
   end
 end

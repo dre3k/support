@@ -2,7 +2,8 @@ class TicketsConstraint
   REAL_ID_REGEX = /\A\d+\Z/
   URL_ID_REGEX  = /\A[a-f0-9]{40}\Z/
   def self.matches?(request)
-    if request.params[:action] == 'show'
+    action = request.params[:action]
+    if action =~ /\Ashow|update\Z/
       id = request.params[:id]
       if request.session[:member_id]
         return id =~ REAL_ID_REGEX
