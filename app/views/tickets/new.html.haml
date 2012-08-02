@@ -1,32 +1,33 @@
 %h1 Create new ticket
 
-= form_tag tickets_path do
-  - if ticket && ticket.errors.any?
-    %div
-      %h2 Form is invalid
-      %ul
-        - ticket.errors.full_messages.each do |message|
-          %li= message
+%div#new_ticket_form
+  = form_tag tickets_path do
+    - if ticket && ticket.errors.any?
+      %div
+        %h2 Form is invalid
+        %ul
+          - ticket.errors.full_messages.each do |message|
+            %li= message
 
-  %div
-    = label_tag :name
-    %br
-    = text_field_tag :name, name
-  %div
-    = label_tag :email
-    %br
-    = text_field_tag :email, email
-  %div
-    = label_tag :department
-    %br
-    = text_field_tag :department, department
-  %div
-    = label_tag :subject
-    %br
-    = text_field_tag :subject, subject
-  %div
-    = label_tag :message
-    %br
-    = text_area_tag :message, message
-  %div
-    = submit_tag 'Submit'
+    %div
+      = label_tag :name
+      %br
+      = text_field_tag :name, name
+    %div
+      = label_tag :email
+      %br
+      = text_field_tag :email, email
+    %div
+      = label_tag :department
+      %br
+      = text_field_tag :department, department
+    %div
+      = label_tag :subject
+      %br
+      = text_field_tag :subject, subject
+    %div
+      = label_tag :message
+      %br
+      = text_area_tag :message, message
+    %div
+      = submit_tag 'Submit'
