@@ -2,8 +2,11 @@ class Reply < ActiveRecord::Base
   attr_accessible \
     :owner_from_id,  :owner_to_id,
     :status_from_id, :status_to_id,
-    :message, :as => :member
-  attr_accessible :message, :as => :customer
+    :message,
+    :as => :member
+  attr_accessible \
+    :message,
+    :as => :customer
 
   validates_presence_of :message
 
