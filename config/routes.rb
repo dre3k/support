@@ -5,6 +5,7 @@ class TicketsConstraint
     action = request.params[:action]
     if action =~ /\Ashow|update\Z/
       id = request.params[:id]
+      return false unless id
       if request.session[:member_id]
         return id =~ REAL_ID_REGEX
       else

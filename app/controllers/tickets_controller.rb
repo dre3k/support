@@ -7,7 +7,10 @@ class TicketsController < ApplicationController
   expose(:subject)    { params[:subject]    }
   expose(:message)    { params[:message]    }
 
-  expose(:id)    { params[:id]    }
+  expose(:id) do
+    params[:id] || (defined?(@ticket) && ( current_member ? @ticket.id : @ticket.url))
+  end
+
   expose(:scope) { params[:scope] }
 
   expose(:ticket)  do
@@ -46,6 +49,8 @@ class TicketsController < ApplicationController
   expose(:no) { (no = params[:no]) && (Ticket::NO_REGEX =~ no.upcase!) ? no : nil }
   expose(:subject) { params[:subject] }
 
+  expose(:email_title) { "#{request.params[:action]}d" }
+
   def index
   end
 
@@ -54,7 +59,9 @@ class TicketsController < ApplicationController
 
   def create
     @ticket = Ticket.create(name: name, email: email, department: department, subject: subject, message: message)
-    unless ticket.save
+    if ticket.save
+      render 'email'
+    else
       render :action => "new"
     end
   end
@@ -80,7 +87,7 @@ class TicketsController < ApplicationController
       as:           role
     }
     if ticket.add_reply(reply_options)
-      redirect_to ticket_path(id), :notice => 'Reply added'
+      render 'email'
     else
       redirect_to ticket_path(id), :notice => 'Failed to add reply'
     end

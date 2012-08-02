@@ -1,15 +1,16 @@
-%h1 New ticket created
+%h1
+  Ticket
+  = email_title
 
+%hr
 %h2 Here we should send email to customer with something like:
-
 %h3
   Ticket url:
-  = link_to "/tickets/#{ticket.url}"
-
+  = link_to ticket_path(id), ticket_path(id)
 %div
   = render 'full_ticket'
+%hr
 
 
 %div
   = link_to 'home', root_url
-

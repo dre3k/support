@@ -91,8 +91,9 @@ class Ticket < ActiveRecord::Base
       ticket_attributes = \
         { owner_id: options[:owner_to_id], status_id: options[:status_to_id] }
       update_attributes!(ticket_attributes, without_protection: true)
+      return reply
+    else
+      nil
     end
-
-    return reply
   end
 end
