@@ -5,6 +5,7 @@ class Reply < ActiveRecord::Base
     :message,
     :as => :member
   attr_accessible \
+    :status_from_id, :status_to_id,
     :message,
     :as => :customer
 

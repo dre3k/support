@@ -45,8 +45,8 @@ class TicketsController < ApplicationController
 
   expose(:email_title) { "#{request.params[:action]}d" }
 
-  expose(:owner_to_id)  { (id = params[:owner_to_id].to_i) && (id > 0) && (Member.find_by_id(id)) || nil }
-  expose(:status_to_id) { (id = params[:status_to_id].to_i) && (id > 0) && (TicketStatus.find_by_id(id)) || nil }
+  expose(:owner_to_id)  { (id = params[:owner_to_id].to_i) && (id > 0) && (Member.find_by_id(id)) && id || nil }
+  expose(:status_to_id) { (id = params[:status_to_id].to_i) && (id > 0) && (TicketStatus.find_by_id(id)) && id || nil }
 
   def index
   end

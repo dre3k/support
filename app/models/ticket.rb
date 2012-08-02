@@ -65,7 +65,7 @@ class Ticket < ActiveRecord::Base
   end
 
   def add_reply(options)
-    # TODO: rationalize & refactor
+   # TODO: rationalize & refactor; sanitize_for_mass_assignment ???
     role = options[:as] || :customer
     reply_attributes = \
       Reply.attr_accessible[role].to_a.delete_if(&:empty?).map(&:to_sym)
@@ -77,10 +77,15 @@ class Ticket < ActiveRecord::Base
       options[:owner_from_id] = read_attribute(:owner_id)
     end
 
+    options[:status_to_id] = TicketStatus::SYMBOLS[:staff] if role == :customer
     update_status = options[:status_to_id] and \
       TicketStatus.find_by_id(options[:status_to_id])
-    if update_status
-      options[:status_from_id] = read_attribute(:status_id)
+    status_id = read_attribute(:status_id)
+    if update_status && (status_id != options[:status_to_id])
+      options[:status_from_id] = status_id
+    else
+      options.delete(:status_to_id)
+      options.delete(:status_from_id)
     end
 
     reply = replies.build(options, :as => role)
