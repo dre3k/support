@@ -1,5 +1,16 @@
-%h1 Tickets unique urls for customers
+%h1 Support members usernames and passwords
+%table
+  %thead
+    %tr
+      %th username
+      %th password
+  %tbody
+    - members.each do |member|
+      %tr
+        %td= member.username
+        %td memeber
 
+%h1 Tickets unique urls for customers
 %table
   %tbody
     - tickets.each do |ticket|
