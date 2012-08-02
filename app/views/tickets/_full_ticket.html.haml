@@ -18,7 +18,7 @@
   %h2 History
   %hr
   - replies.each do |reply|
-    %p== Date: #{reply.created_at}
+    %p== Updated by #{reply.replier_name} at #{reply.created_at}
     - if owner_to = reply.owner_to
       - if owner_from = reply.owner_from
         %p== Changed owner form #{owner_from.name} to #{owner_to.name}

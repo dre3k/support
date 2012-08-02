@@ -22,7 +22,7 @@ rescue
 end
 
 begin
-  60.times do
+  80.times do
     t = Ticket.create!({
       name: Faker::Name.name,
       email: Faker::Internet.email,
@@ -35,6 +35,7 @@ begin
     when 0
       # regular reply: status -> waiting for customer
       t.add_reply({
+        replier_id:  rand(MEMBERS_COUNT),
         owner_to_id: rand(MEMBERS_COUNT),
         status_to_id: TicketStatus::SYMBOLS[:customer],
         message: Faker::Lorem.paragraph
@@ -44,18 +45,21 @@ begin
       when 0
         # cancel reply
         t.add_reply({
+          replier_id:  rand(MEMBERS_COUNT),
           status_to_id: TicketStatus::SYMBOLS[:cancelled],
           message: Faker::Lorem.paragraph
         })
       when 1
         # complete reply
         t.add_reply({
+          replier_id:  rand(MEMBERS_COUNT),
           status_to_id: TicketStatus::SYMBOLS[:completed],
           message: Faker::Lorem.paragraph
         })
       when 2
         # onhold reply
         t.add_reply({
+          replier_id:  rand(MEMBERS_COUNT),
           status_to_id: TicketStatus::SYMBOLS[:onhold],
           message: Faker::Lorem.paragraph
         })

@@ -48,6 +48,8 @@ class TicketsController < ApplicationController
   expose(:owner_to_id)  { (id = params[:owner_to_id].to_i) && (id > 0) && (Member.find_by_id(id)) && id || nil }
   expose(:status_to_id) { (id = params[:status_to_id].to_i) && (id > 0) && (TicketStatus.find_by_id(id)) && id || nil }
 
+  expose(:replier_id)   { current_member ? current_member.id : nil }
+
   def index
   end
 
@@ -78,6 +80,7 @@ class TicketsController < ApplicationController
 
   def update
     reply_options = {
+      replier_id:   replier_id,
       owner_to_id:  owner_to_id,
       status_to_id: status_to_id,
       message:      message,
