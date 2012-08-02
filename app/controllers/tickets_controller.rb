@@ -40,7 +40,7 @@ class TicketsController < ApplicationController
     end
   end
 
-  expose(:no) { (no = params[:no]) && (Ticket::NO_REGEX =~ no.upcase!) ? no : nil }
+  expose(:no) { (no = params[:no]) && (no = no.upcase) && (Ticket::NO_REGEX =~ no) ? no : nil }
   expose(:subject) { params[:subject] }
 
   expose(:email_title) { "#{request.params[:action]}d" }
