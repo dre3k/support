@@ -18,10 +18,9 @@ gem 'decent_exposure'
 
 group :development do
   gem 'annotate'
-  gem 'ffaker'
-
   gem 'debugger'
   gem 'pry-rails'
 end
 
+gem 'ffaker'
 gem 'bcrypt-ruby', '~> 3.0.0'
