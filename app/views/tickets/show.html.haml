@@ -1,2 +1,5 @@
 = render 'full_ticket'
-= render 'customer_reply'
+- if current_member
+  = render 'member_reply'
+- else
+  = render 'customer_reply'

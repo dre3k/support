@@ -1,0 +1,16 @@
+= form_tag(ticket_path(id),  :method => 'put') do
+  %div
+    = label_tag :owner_to_id
+    %br
+    = select_tag :owner_to_id, options_for_select(all_members_options)
+  %div
+    = label_tag :status_to_id
+    %br
+    = select_tag :status_to_id, options_for_select(all_ticketstatuses_options, ticket.status_id)
+  %div
+    = label_tag :message
+    %br
+    = text_area_tag :message
+  %div
+    = submit_tag 'Reply'
+
