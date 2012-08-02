@@ -85,7 +85,6 @@ class Ticket < ActiveRecord::Base
       else
        options[:status_to_id] && TicketStatus.find_by_id(options[:status_to_id])
       end
-    binding.pry
     if update_status && (status_id != options[:status_to_id])
       options[:status_from_id] = status_id
     else

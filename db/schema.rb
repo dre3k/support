@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(:version => 20120731135757) do
   add_index "members", ["username"], :name => "index_members_on_username", :unique => true
 
   create_table "replies", :force => true do |t|
+    t.integer  "replier_id"
     t.integer  "owner_from_id"
     t.integer  "owner_to_id"
     t.integer  "status_from_id"
