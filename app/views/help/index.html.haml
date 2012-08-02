@@ -1,0 +1,9 @@
+%h1 Tickets unique urls for customers
+
+%table
+  %tbody
+    - tickets.each do |ticket|
+      %tr
+        %td= ticket.no
+        %td
+          = link_to ticket.url, "/tickets/#{ticket.url}"

@@ -10,12 +10,14 @@
   %div#container
     %div#header
       %div= link_to 'Home', root_url
+      %div= link_to 'Help', help_index_path
       %div
         - if current_member
           == Logged in as #{current_member.username}
           = link_to 'Log Out', logout_path, method: 'delete'
         - else
           = link_to 'Log In', login_path
+      %div
 
     - flash.each do |name, message|
       = content_tag :div, message, id: "flash_#{name}"

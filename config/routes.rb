@@ -19,6 +19,8 @@ class TicketsConstraint
 end
 
 Support::Application.routes.draw do
+  get "help/index"
+
   root :to => 'tickets#new',   :constraints => lambda { |req| !req.session[:member_id] }
   root :to => 'tickets#index', :constraints => lambda { |req|  req.session[:member_id] }
 
